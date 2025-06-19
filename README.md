@@ -22,9 +22,14 @@ python manage.py createsuperuser
 ```
 python manage.py drf_create_token <username>
 ```
-3. Add device
+3. Add device either by /admin page or post request, example:
 ```
-to do
+curl -X POST http://127.0.0.1:8000/api/device/ \
+-H "Authorization: Token YOUR_TOKEN_HERE" \
+-H "Content-Type: application/json" \
+  -d '{ 
+        "devEUI": "abcdabcdabcdabcd", 
+    }' 
 ```
 4. Make a post request to simulate payload, example:
 ```
