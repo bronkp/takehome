@@ -1,4 +1,4 @@
 from django.contrib import admin
-from endpoint.models import Device
+from endpoint.models import Device, Payload
 admin.site.register(Device)
-# Register your models here.
+admin.site.register(Payload)
