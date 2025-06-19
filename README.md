@@ -50,6 +50,5 @@ curl -X POST http://127.0.0.1:8000/api/payload/ \
 
 ```
 5. Check device and payload entries with a GET request
-Device: 127.0.0.1:8000/api/device 
-
-Payload: 127.0.0.1:8000/api/payload
+- Device: 127.0.0.1:8000/api/device/ 
+- Payload: 127.0.0.1:8000/api/payload/
