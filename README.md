@@ -14,15 +14,19 @@ pip install -r requirements.txt
 
     
 ## Usage/Examples
-1. Make user
+1. Apply migrations
+   ```
+   python manage.py migrate
+   ```
+2. Make user
 ```
 python manage.py createsuperuser 
 ```
-2. Generate token and save token
+3. Generate token and save token
 ```
 python manage.py drf_create_token <username>
 ```
-3. Add device either by /admin page or post request, example:
+4. Add device either by /admin page or post request, example:
 ```
 curl -X POST http://127.0.0.1:8000/api/device/ \
 -H "Authorization: Token YOUR_TOKEN_HERE" \
@@ -31,7 +35,7 @@ curl -X POST http://127.0.0.1:8000/api/device/ \
         "devEUI": "abcdabcdabcdabcd", 
     }' 
 ```
-4. Make a post request to simulate payload, example:
+5. Make a post request to simulate payload, example:
 ```
 curl -X POST http://127.0.0.1:8000/api/payload/ \
 -H "Authorization: Token YOUR_TOKEN_HERE" \
@@ -49,6 +53,6 @@ curl -X POST http://127.0.0.1:8000/api/payload/ \
     }' 
 
 ```
-5. Check device and payload entries with a GET request
+6. Check device and payload entries with a GET request
 - Device: 127.0.0.1:8000/api/device/ 
 - Payload: 127.0.0.1:8000/api/payload/
