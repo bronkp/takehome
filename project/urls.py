@@ -19,9 +19,10 @@ from django.urls import path,include
 from rest_framework import routers
 from endpoint import views
 router = routers.DefaultRouter()
-router.register('device/', views.DeviceViewSet)
-router.register('payload/', views.PayloadViewSet)
+router.register(r'device', views.DeviceViewSet)
+router.register(r'payload', views.PayloadViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),  
+    path('api/',include(router.urls))
 ]
+    

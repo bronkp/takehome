@@ -8,4 +8,4 @@ class DeviceSerializer(serializers.HyperlinkedModelSerializer):
 class PayloadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Payload
-        fields = ['device','fCnt','status']
+        fields = ['fCnt','status']
