@@ -23,11 +23,18 @@ class PayloadViewSet(viewsets.ModelViewSet):
                 return Response(status = status.HTTP_409_CONFLICT)
             else:
                 decoded = int.from_bytes(b64decode(encoded_data), 'big')
+                print(decoded)
                 payload_status = True if decoded == 1 else False
+                print(payload_status)
                 device = Device.objects.get(devEUI = devEUI)
+                device.status = payload_status
                 Payload.objects.create(fCnt=fCnt,status=payload_status,device=device)
+                device.save()
             return Response(status=status.HTTP_202_ACCEPTED)
         except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Device.DoesNotExist:
+            return Response({"error":"invalid device id"},status=status.HTTP_400_BAD_REQUEST)
+            
     queryset = Payload.objects.all()
     serializer_class = PayloadSerializer
