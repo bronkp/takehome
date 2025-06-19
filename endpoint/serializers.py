@@ -6,11 +6,12 @@ class DeviceSerializer(serializers.HyperlinkedModelSerializer):
         model = Device
         fields = ['devEUI', 'status']
 class PayloadSerializer(serializers.HyperlinkedModelSerializer):
-    #getting device id from foreign key
+    #getting device id from foreign key, not required
     device = serializers.SlugRelatedField(
         read_only=True,
         slug_field='devEUI'
      )
+    
     class Meta:
         model = Payload
-        fields = ('device','fCnt','status')
+        fields = ['device','fCnt','status']

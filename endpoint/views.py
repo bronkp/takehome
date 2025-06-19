@@ -6,8 +6,8 @@ from endpoint.serializers import DeviceSerializer,PayloadSerializer
 from base64 import b64decode
 from django.db.utils import IntegrityError
 class DeviceViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    def create(self, request):
+    permission_classes = [IsAuthenticated] #checking for token
+    def create(self, request): # POST
         try:
             data = request.data
             devEUI = data['devEUI']
@@ -19,10 +19,11 @@ class DeviceViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
+    
+
 class PayloadViewSet(viewsets.ModelViewSet):
-    #checking for token
-    permission_classes = [IsAuthenticated]
-    def create(self, request): # Post request
+    permission_classes = [IsAuthenticated] #checking for token
+    def create(self, request): # POST
         try:
             data = request.data
             fCnt = data["fCnt"] 
@@ -39,7 +40,7 @@ class PayloadViewSet(viewsets.ModelViewSet):
                 device.status = payload_status
                 Payload.objects.create(fCnt=fCnt,status=payload_status,device=device)
                 device.save()
-            return Response(status=status.HTTP_201_CREATED)
+                return Response(status=status.HTTP_201_CREATED)
         except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         except Device.DoesNotExist:
