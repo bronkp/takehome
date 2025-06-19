@@ -4,9 +4,9 @@
 ## Installation
 
 1. Clone the repository
-2. Install requirments
+2. Install requirements
 ```bash
-pip install -r requirments.txt
+pip install -r requirements.txt
 ```
 
 
