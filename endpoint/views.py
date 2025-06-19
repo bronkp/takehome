@@ -19,7 +19,7 @@ class DeviceViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
-    
+    lookup_field = 'devEUI' #allows lookup by devEUI if not wanting all
 
 class PayloadViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated] #checking for token
