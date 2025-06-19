@@ -12,21 +12,22 @@ class DeviceViewSet(viewsets.ModelViewSet):
 class PayloadViewSet(viewsets.ModelViewSet):
     #checking for token
     permission_classes = [IsAuthenticated]
-    #When Post Request
-    def create(self, request):
-        data = request.data
-        fCnt = data["fCnt"]
-        devEUI = data["devEUI"]
-        encoded_data = data["data"]
-        
-        reused = Payload.objects.filter(fCnt = fCnt).exists()
-        if reused:
-            return Response(status = status.HTTP_409_CONFLICT)
-        else:
-            decoded = int.from_bytes(b64decode(encoded_data), 'big')
-            payload_status = True if decoded == 1 else 0
-            device = Device.objects.get(devEUI=devEUI)
-            Payload.objects.create(fCnt=fCnt,status=payload_status,device=device)
-        return Response(status=status.HTTP_202_ACCEPTED)
+    def create(self, request): # Post request
+        try:
+            data = request.data
+            fCnt = data["fCnt"] 
+            devEUI = data["devEUI"]
+            encoded_data = data["data"]
+            reused = Payload.objects.filter(fCnt = fCnt, device__devEUI=devEUI).exists()
+            if reused:
+                return Response(status = status.HTTP_409_CONFLICT)
+            else:
+                decoded = int.from_bytes(b64decode(encoded_data), 'big')
+                payload_status = True if decoded == 1 else False
+                device = Device.objects.get(devEUI = devEUI)
+                Payload.objects.create(fCnt=fCnt,status=payload_status,device=device)
+            return Response(status=status.HTTP_202_ACCEPTED)
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     queryset = Payload.objects.all()
     serializer_class = PayloadSerializer
